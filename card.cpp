@@ -9,7 +9,7 @@ using namespace std;
 Card::Card() {
     myRank = 1;
     mySuit = Card::Suit(0);
-    cout<<suitString(mySuit)<<endl;  //comment out later
+    //cout<<suitString(mySuit)<<endl;  //comment out later
 }
 
 Card::Card(int rank, Suit s) {
