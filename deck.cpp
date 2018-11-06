@@ -26,3 +26,4 @@ Card Deck::dealCard() {
     }
     return tempCard;
 }
+
