@@ -7,12 +7,15 @@
 #include <ctime>
 
 Deck::Deck() {
+    myIndex = 0;
+
     int tempSuit;
     int tempRank;  //for creating new cards
     int index = 0;
     for (tempSuit = 0; tempSuit < 4; tempSuit++) {
         for (tempRank = 1; tempRank < 14; tempRank++) {
             myCards[index] = Card(tempRank, Card::Suit(tempSuit));
+            cout<<index<<". "<<myCards[index].toString()<<endl;
             index++;
         }
     }
@@ -41,6 +44,6 @@ Card Deck::dealCard() {
 
 
 int  Deck::size() const{
-
+    return SIZE - myIndex;
 }
 
