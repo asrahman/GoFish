@@ -3,10 +3,10 @@
 //
 
 #include "deck.h"
+#include <random>
+#include <ctime>
 
 Deck::Deck() {
-    myIndex = 0; //initial value of index
-
     int tempSuit;
     int tempRank;  //for creating new cards
     int index = 0;
@@ -18,6 +18,18 @@ Deck::Deck() {
     }
 }
 
+void Deck::shuffle(){
+    srand(time(NULL));          //random seed for generator
+    int num = SIZE;
+    for(int i=0; i<num/2;i++){
+        int index1 = rand() % num;
+        int index2 = rand() % num;
+        Card temp = myCards[index1];
+        myCards[index1] = myCards[index2];
+        myCards[index2] = temp;
+    }
+}
+
 Card Deck::dealCard() {
     Card tempCard(0,Card::Suit(0));
     if (size() > 0) {
@@ -25,5 +37,10 @@ Card Deck::dealCard() {
         myIndex++;
     }
     return tempCard;
+}
+
+
+int  Deck::size() const{
+
 }
 
