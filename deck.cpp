@@ -44,6 +44,7 @@ Card Deck::dealCard() {
     return tempCard;
 }
 
+
 int  Deck::size() const{
     return SIZE - myIndex;
 }
