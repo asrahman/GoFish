@@ -22,7 +22,7 @@ Deck::Deck() {
 
 void Deck::shuffle(){
     srand(time(NULL));          //random seed for generator
-    int num = SIZE;
+    int num = size();
     for(int i=0; i<num;i++){
         int index1 = rand() % num;
         int index2 = rand() % num;
