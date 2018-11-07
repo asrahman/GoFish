@@ -15,7 +15,7 @@ Deck::Deck() {
     for (tempSuit = 0; tempSuit < 4; tempSuit++) {
         for (tempRank = 1; tempRank < 14; tempRank++) {
             myCards[index] = Card(tempRank, Card::Suit(tempSuit));
-            cout<<index<<". "<<myCards[index].toString()<<endl;
+            //cout<<index<<". "<<myCards[index].toString()<<endl;
 
             index++;
         }
