@@ -92,6 +92,7 @@ string Player::showBooks() const{
     for(iter = myBook.begin(); iter != myBook.end(); iter++){
         books = books + (*iter).toString() + " " ;
     }
+    return books;
 }
 
 bool Player::checkHandForPair(Card &c1, Card &c2){
