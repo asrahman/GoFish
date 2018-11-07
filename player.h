@@ -67,7 +67,7 @@ public:
     string showBooks() const;
 
     int getHandSize() const;
-    int getBookSize() const;
+    int getBookSize() const;  //returns number of cards
 
     //OPTIONAL
     // comment out if you decide to not use it
