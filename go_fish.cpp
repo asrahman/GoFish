@@ -49,13 +49,13 @@ int main() {
     cout<<p1.getName()<<"'s Hand: "<<p1.showHand()<<endl;
     cout<<p2.getName()<<"'s hand: "<<p2.showHand()<<endl;
 
-    if (p1.checkHandForPair(c1, c2) == true) {
+    while (p1.checkHandForPair(c1, c2) == true) {
         p1.bookCards(c1,c2);
         p1.removeCardFromHand(c1);
         p1.removeCardFromHand(c2);
     }
 
-    if (p2.checkHandForPair(c1, c2) == true) {
+    while (p2.checkHandForPair(c1, c2) == true) {
         p2.bookCards(c1,c2);
         p2.removeCardFromHand(c1);
         p2.removeCardFromHand(c2);
