@@ -30,7 +30,7 @@ int main() {
     ofstream myfile ("gofish_results.txt");
 
     int numCards = 7;
-    int turn = 0;  //Joe is 0, jane is 1
+    int turn = JOE;  //Joe is 0, jane is 1
     Card c1, c2, current;
     Player p1("Joe");
     Player p2("Jane");
@@ -44,73 +44,90 @@ int main() {
 
     if (myfile.is_open()) {
         myfile << "Go Fish"<<endl;
+        myfile<<endl;
     }
 
-    cout<<p1.getName()<<"'s Hand: "<<p1.showHand()<<endl;
-    cout<<p2.getName()<<"'s hand: "<<p2.showHand()<<endl;
+    myfile<<p1.getName()<<"'s Hand: "<<p1.showHand()<<endl;
+    myfile<<p2.getName()<<"'s Hand: "<<p2.showHand()<<endl;
+    myfile<<p1.getName()<<"'s Book: "<<p1.showBooks()<<endl;
+    myfile<<p2.getName()<<"'s Book: "<<p2.showBooks()<<endl;
+    myfile<<endl;
 
     while (p1.checkHandForPair(c1, c2) == true) {
         p1.bookCards(c1,c2);
-        p1.removeCardFromHand(c1);
-        p1.removeCardFromHand(c2);
+        myfile<<message(p1,BOOKS,c1)<<endl;
+        myfile<<endl;
     }
 
     while (p2.checkHandForPair(c1, c2) == true) {
         p2.bookCards(c1,c2);
-        p2.removeCardFromHand(c1);
-        p2.removeCardFromHand(c2);
+        myfile<<message(p2,BOOKS,c1)<<endl;
+        myfile<<endl;
     }
 
-    int count = 0;
-    while (d.size() != 0 && p1.getHandSize() != 0 && p2.getHandSize() != 0 && count < 5) {
+    //int count = 0;
+    while (p1.getBookSize()+p2.getBookSize() != 52) {
       Player* p = checkTurn(turn, &p1, &p2);
       Player* other = checkTurn(((turn+1)%2),&p1,&p2);
       //p->addCard(d.dealCard());
       //cout<<"p: "<<p->showHand()<<endl;
       //cout<<"p1: "<<p1.showHand()<<endl;
 
-      cout<<p->getName()<<"'s Hand: "<<p->showHand()<<endl;
-      cout<<other->getName()<<"'s hand: "<<other->showHand()<<endl;
-      cout<<endl;
-      cout<<p->getName()<<"'s Book: "<<p->showBooks()<<endl;
-      cout<<other->getName()<<"'s Book: "<<other->showBooks()<<endl;
+      myfile<<p1.getName()<<"'s Hand: "<<p1.showHand()<<endl;
+      myfile<<p2.getName()<<"'s Hand: "<<p2.showHand()<<endl;
+      myfile<<p1.getName()<<"'s Book: "<<p1.showBooks()<<endl;
+      myfile<<p2.getName()<<"'s Book: "<<p2.showBooks()<<endl;
+      myfile<<endl;
       current = p->chooseCardFromHand();
-      cout<<message(*checkTurn(turn,&p1,&p2), ASK, current)<<endl;
+      myfile<<message(*p, ASK, current)<<endl;
 
       if (other->rankInHand(current)) {
-          other->removeCardFromHand(current);
-          p->addCard(current);
+          myfile<<message(*other,YES,current)<<endl;
+          Card otherCard = other->findCardWithSameRank(current);
+          other->removeCardFromHand(otherCard);
+          p->addCard(otherCard);
           if (p->checkHandForPair(c1,c2)) {
-              cout<<message(*other,YES,current)<<endl;
               p->bookCards(c1,c2);
-              cout<<message(*p,BOOKS,current)<<endl;
-              cout<<p->getName()<<"'s Book: "<<p->showBooks()<<endl;
+              myfile<<message(*p,BOOKS,current)<<endl;
           }
       }
       else {
-          cout<<message(*other,GOFISH,current)<<endl;
+          myfile<<message(*other,GOFISH,current)<<endl;
           Card newCard = d.dealCard();
           p->addCard(newCard);
-          cout<<message(*p,DRAWS,newCard)<<endl;
+          myfile<<message(*p,DRAWS,newCard)<<endl;
           if (p->checkHandForPair(c1,c2)) {
               p->bookCards(c1,c2);
-              cout<<message(*p,BOOKS,newCard)<<endl;
-              cout<<p->getName()<<"'s Book: "<<p->showBooks()<<endl;
+              myfile<<message(*p,BOOKS,newCard)<<endl;
           }
           turn = (turn+1)%2;
 
       }
 
      // cout<<message(*checkTurn(((turn+1)%2),&p1,&p2), ASK, current)<<endl;
-    cout<<endl;
-    count++;
+    myfile<<endl;
+   // count++;
+    if(p->getHandSize()==0 && d.size()!=0){
+        p->addCard(d.dealCard());
+    }
+    if(other->getHandSize()==0 && d.size()!=0){
+        other->addCard(d.dealCard());
     }
 
+    }
+
+    myfile<<p1.getName()<<"'s Hand: "<<p1.showHand()<<endl;
+    myfile<<p2.getName()<<"'s Hand: "<<p2.showHand()<<endl;
+    myfile<<endl;
+    myfile<<p1.getName()<<"'s Book: "<<p1.showBooks()<<endl;
+    myfile<<p2.getName()<<"'s Book: "<<p2.showBooks()<<endl;
+    myfile<<endl;
+
     if (p1.getBookSize() > p2.getBookSize()) {
-        myfile << p1.getName() << "wins!"<<endl;
+        myfile << p1.getName() << " wins!"<<endl;
     }
     else if (p2.getBookSize() > p1.getBookSize()) {
-        myfile << p2.getName() << "wins!"<<endl;
+        myfile << p2.getName() << " wins!"<<endl;
     }
 
     else {
@@ -131,7 +148,7 @@ void dealHand(Deck &d, Player &p, int numCards)
 
 string message(Player const p, int index, Card c) {
     string output;
-    string MessageArray[5] = {" asks -- Do you have a ", " says - Go fish"," draws ", " says - Yes, I have a ", " books the "};
+    string MessageArray[5] = {" asks - Do you have a ", " says - Go fish"," draws ", " says - Yes, I have a ", " books the "};
     if (index == ASK)  {
         output = p.getName() + MessageArray[index] + c.rankString(c.getRank()) + '?';
     }

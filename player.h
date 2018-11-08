@@ -83,6 +83,8 @@ public:
 
     bool sameRankInHand(Card c) const;
 
+    Card findCardWithSameRank(Card other);
+
 
 private:
 
@@ -90,6 +92,7 @@ private:
     vector <Card> myBook;
 
     string myName;
+
 
 };
 
