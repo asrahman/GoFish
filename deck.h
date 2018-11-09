@@ -26,6 +26,7 @@
 #define _DECK_H
 
 #include "card.h"
+#include <cstdlib>
 
 
 class Deck
