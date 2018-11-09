@@ -1,5 +1,5 @@
 //
-// Created by Ayesha Rahman on 11/3/18.
+// Created by Shania Paul and Ayesha Rahman on 11/3/18.
 //
 
 #ifndef GOFISH_PLAYER_H

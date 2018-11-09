@@ -1,5 +1,5 @@
 //
-// Created by Ayesha Rahman on 11/6/18.
+// Created by Shania Paul and Ayesha Rahman on 11/6/18.
 //
 
 #include <iostream>    // Provides cout and cin

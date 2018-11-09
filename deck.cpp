@@ -1,5 +1,5 @@
 //
-// Created by Ayesha Rahman on 11/4/18.
+// Created by Shania Paul and Ayesha Rahman on 11/4/18.
 //
 
 #include "deck.h"
